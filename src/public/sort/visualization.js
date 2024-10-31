@@ -12,6 +12,13 @@ image.src = img;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+let runCount = 0;
+const runCountTextview = document.getElementById('run_cnt');
+const runCountText = "Running Count - ";
+
+const runTimeTextview = document.getElementById('run_time');
+const runTimeText = "Running Time - ";
+
 // init image draw when loaded
 image.onload = async () => {
     canvas.width = image.width;
@@ -51,12 +58,13 @@ function start() {
     const currentPath = new URL(location.href).pathname;
     const sortType = currentPath.split('/').pop();
 
-    console.log(sortType);
-
     sortNames = {
         'merge': ["병합 정렬(Merge Sort)", mergeSort],
         'insert': ["삽입 정렬(Insertion Sort)", insertionSort],
     }
+
+    runCount = 0;
+    runCountTextview.innerHTML = runCountText + runCount;
 
     execute(sortNames[sortType][1]);
 }
@@ -66,8 +74,9 @@ function execute(sortFunction) {
 
     image.src = img;
     image.onload = async () => {
+        const startTime = new Date();
         changeBtnStatus(true);
-        arr = await sortWithAnimation(image, ctx, arr, interval, sortFunction);
+        arr = await sortWithAnimation(image, ctx, arr, interval, sortFunction, startTime);
         await sortWithAnimation(image, ctx, arr, interval, checkSorted);
         changeBtnStatus(false);
     }
@@ -100,13 +109,13 @@ function drawImage(arr, image, ctx, colored = []) {
     }
 }
 
-async function sortWithAnimation(image, ctx, arr, interval, generator) {
+async function sortWithAnimation(image, ctx, arr, interval, generator, startTime) {
     let finalArray = [...arr];
     let colorAndSoundQueue = [];
     const frameDuration = 60;
 
     for (let result of generator(finalArray)) {
-        const { array, swappedIndexes = [], compareIndexes = [] } = result;
+        const { array, swappedIndexes = [], compareIndexes = [], runCount } = result;
 
         colorAndSoundQueue.push({
             array,
@@ -121,6 +130,9 @@ async function sortWithAnimation(image, ctx, arr, interval, generator) {
     }
 
     const numStepsPerFrame = Math.ceil(frameDuration / interval);
+    let stepProgress = 0;
+    let stepLength = colorAndSoundQueue.length;
+
     while (colorAndSoundQueue.length > 0) {
         let combinedArray;
         let combinedColored = [];
@@ -134,12 +146,40 @@ async function sortWithAnimation(image, ctx, arr, interval, generator) {
 
             if (i === 0)
                 soundIndexes.forEach(index => combinedSoundIndexes.add(index));
+
+            stepProgress++;
         }
 
         let duration = Math.max(frameDuration, interval);
 
+
         drawImage(combinedArray, image, ctx, combinedColored);
         playBeepSound(duration, arr.length, Array.from(combinedSoundIndexes));
+
+
+
+
+        if (startTime) {
+            let sortPercent = (stepProgress * 100 / stepLength).toFixed(2);
+
+            
+            runCount++;
+            runCountTextview.innerHTML = `${runCountText}${runCount}, ${sortPercent}%`;
+
+            const runningTime = new Date() - startTime;
+
+            let min = Math.floor(runningTime / (1000 * 60));
+            min = min.toString().padStart(2, '0');
+
+            let sec = Math.floor(runningTime / 1000 % 60);
+            sec = sec.toString().padStart(2, '0');
+
+            let ms = Math.floor(runningTime % 1000 / 10);
+            ms = ms.toString().padStart(2, '0');
+
+
+            runTimeTextview.innerHTML = runTimeText + `${min} : ${sec} : ${ms}`;
+        }
 
         await asleep(Math.max(frameDuration, interval));
     }

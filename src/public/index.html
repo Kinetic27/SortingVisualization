@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css" type="text/css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="slide__container">
-        <input id = "n_slider" type="range" min="10" max="512" value="100">
-        <p>Arr Length: <span id="n_value"></span></p>
+    <div class="container">
+        <h1 class="header press-start-2p-regular">SORT VISUALIZATION</h1>
+        <div class="slide__container">
+            <p class="slider_head">Arr Length: <span id="n_value"></span></p>
+            <input id="n_slider" type="range" min="10" max="512" value="100">
 
-        <input id = "s_slider" type="range" min="1" max="256" value="20">
-        <p>Run Speed: <span id="s_value"></span></p>
+            <p class="slider_head">Run Speed: <span id="s_value"></span></p>
+            <input id="s_slider" type="range" min="1" max="256" value="20">
+        </div>
+
+
+        <div id="buttons" class="btn_container">
+            <button class="btn press-start-2p-regular" onclick="moveTo('/sort/insert')">INSERT</button>
+            <button class="btn press-start-2p-regular" onclick="moveTo('/sort/merge')">MERGE</button>
+        </div>
     </div>
-
-
-    <div id="buttons">
-        <button onclick="moveTo('/sort/insert')">Insert Sort</button>
-        <button onclick="moveTo('/sort/merge')">Merge Sort</button>
-    </div>
-
+    
     <script src="./index.js"></script>
 </body>
 

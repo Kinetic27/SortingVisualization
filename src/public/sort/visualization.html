@@ -6,14 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./visualization.css" type="text/css" />
     <title>Merge Sort Visualization</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="canvas-label"></div>
 
-    <button id="run" onclick="start()">RUN</button>
-    <button id="shuffle" onclick="shuffleArray()">Shuffle</button>
+    <div class="container">
+        <h1 id="run_cnt">Running Count - 0, 0.00%</h1>
+        <h3 id="run_time">Running Time - 00:00:00</h3>
+
+        <canvas id="canvas"></canvas>
+
+        <div class="btn_container">
+            <button id="run" class="btn press-start-2p-regular" onclick="start()">RUN</button>
+            <button id="shuffle" class="btn press-start-2p-regular" onclick="shuffleArray()">SHUFFLE</button>
+        </div>
+    </div>
+
     <script src="./sort.js" defer></script>
     <script src="./visualization.js" defer></script>
 </body>
