@@ -1,7 +1,9 @@
+// get python like range arr in js
 function range(s, e) {
     return Array.from(new Array(e - s), (_, i) => i + s);
 }
 
+// insert sort algorithm
 function* insertionSort(arr) {
     let n = arr.length;
 
@@ -49,6 +51,7 @@ function* insertionSort(arr) {
     };
 }
 
+// merge sort algorithm
 const mergeSort = (() => {
     function* merge(arr, left, mid, right) {
         const merged = [];
@@ -70,7 +73,6 @@ const mergeSort = (() => {
         while (i <= mid) merged.push(arr[i++]);
         while (j <= right) merged.push(arr[j++]);
 
-        // 병합한 결과를 원래 배열에 반영
         for (let k = left; k <= right; k++) {
             arr[k] = merged[k - left];
         }
@@ -83,7 +85,6 @@ const mergeSort = (() => {
         };
     }
 
-    // 병합 정렬의 재귀 함수
     function* mergeSortRecursive(arr, left, right) {
         if (left < right) {
             const mid = Math.floor((left + right) / 2);
@@ -94,13 +95,13 @@ const mergeSort = (() => {
 
     }
 
-    // 병합 정렬을 수행하는 메인 함수
     return function* mergeSort(arr) {
         yield* mergeSortRecursive(arr, 0, arr.length - 1);
         return arr;
     };
 })();
 
+// quick sort algorithm
 const quickSort = (() => {
     function* divide(arr, left, right) {
         const mid = Math.floor((left + right) / 2);
@@ -153,6 +154,7 @@ const quickSort = (() => {
     };
 })();
 
+// buble sort algorithm
 function* bubbleSort(arr) {
     const n = arr.length;
 
@@ -185,6 +187,7 @@ function* bubbleSort(arr) {
     return arr;
 }
 
+// loop for arr sorted check"
 function* checkSorted(arr) {
     for (let i = 0; i < arr.length; i++) {
         yield { array: [...arr], compareIndexes: [i] };

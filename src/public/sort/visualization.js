@@ -4,6 +4,7 @@ const interval = params.get('s') * 1 || 20;
 
 let arr = [...Array(n).keys()]
 
+// Set Image List
 const img_gachon = 'https://www.gachon.ac.kr/sites/pr/atchmnfl/bbs/464/thumbnail/thumb_temp_1729488066932100.jpg';
 const img_leegilya = 'https://img.khan.co.kr/news/2013/05/22/l_2013052301002975800258871.jpg';
 const img_gachon_logo = 'https://blog.kakaocdn.net/dn/bt1E7c/btqyiAat5IU/xVNU3W8K6cUbF20CztlRVK/img.jpg';
@@ -14,10 +15,10 @@ const imgs = [img_gachon, img_leegilya, img_gachon_logo, img_moodang];
 const random = Math.floor(Math.random() * imgs.length);
 const img = imgs[random];
 
-
 const image = new Image();
 image.src = img;
 
+// get Elements
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -35,6 +36,7 @@ image.onload = async () => {
     drawImage(arr, image, ctx)
 }
 
+// Set button diable when sorting
 let onSorting = false;
 function changeBtnStatus(disable) {
     const shuffleBtn = document.getElementById('shuffle');
@@ -49,7 +51,7 @@ function shuffleArray() {
     if (onSorting) return;
 
     const shuffle = (arr) => {
-        // Durstenfeld shuffle
+        // Durstenfeld shuffle (Fisher-Yates)
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
 
@@ -60,6 +62,8 @@ function shuffleArray() {
     }
 
     arr = shuffle(arr);
+
+    // draw init image
     drawImage(arr, image, ctx);
 }
 
@@ -67,6 +71,7 @@ function start() {
     const currentPath = new URL(location.href).pathname;
     const sortType = currentPath.split('/').pop();
 
+    // select sort method in url
     sortNames = {
         'merge': ["병합 정렬(Merge Sort)", mergeSort],
         'insert': ["삽입 정렬(Insertion Sort)", insertionSort],
@@ -74,6 +79,7 @@ function start() {
         'bubble': ["버블 정렬(Bubble Sort)", bubbleSort],
     }
 
+    // init setting for check run count
     runCount = 0;
     runCountTextview.innerHTML = runCountText + runCount;
 
@@ -84,11 +90,17 @@ function execute(sortFunction) {
     const image = new Image();
 
     image.src = img;
+    // start when image loaded
     image.onload = async () => {
         const startTime = new Date();
         changeBtnStatus(true);
+        
+        // do sort
         arr = await sortWithAnimation(image, ctx, arr, interval, sortFunction, startTime);
+        
+        // check sorted
         await sortWithAnimation(image, ctx, arr, interval, checkSorted);
+        
         changeBtnStatus(false);
     }
 }
@@ -100,6 +112,7 @@ function drawImage(arr, image, ctx, colored = []) {
 
     const pieceWidth = image.width / arr.length;
 
+    // draw image by block
     arr.forEach((v, i) => {
         const pieceHeight = (v + 1) * image.height / (arr.length + 1);
 
@@ -112,6 +125,7 @@ function drawImage(arr, image, ctx, colored = []) {
         );
     });
 
+    // special colored block
     for (const { indexes, color } of colored) {
         ctx.globalCompositeOperation = 'source-atop';
         ctx.fillStyle = color;
@@ -120,10 +134,12 @@ function drawImage(arr, image, ctx, colored = []) {
     }
 }
 
+// do sort with animation
 async function sortWithAnimation(image, ctx, arr, interval, generator, startTime) {
     let finalArray = [...arr];
     let colorAndSoundQueue = [];
 
+    // get generator and make color&sound queue
     for (let result of generator(finalArray)) {
         const { array, swappedIndexes = [], compareIndexes = [], pivot = [], blue = [] } = result;
 
@@ -141,6 +157,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
         finalArray = array;
     }
 
+    // variable for check step
     let stepProgress = 0;
     let stepLength = colorAndSoundQueue.length;
 
@@ -155,12 +172,14 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
         combinedArray = array;
         combinedColored.push(...colored);
 
+        // draw image with one animation step
         drawImage(combinedArray, image, ctx, combinedColored);
+        // play beep using ocilicator
         playBeepSound(Math.max(interval, 60), arr.length, soundIndexes);
 
+        // check time when sorting (not in checking sorted)
         if (startTime) {
             let sortPercent = (stepProgress * 100 / stepLength).toFixed(2);
-
 
             runCount++;
             runCountTextview.innerHTML = `${runCountText}${runCount}, ${sortPercent}%`;
@@ -178,15 +197,18 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
 
             runTimeTextview.innerHTML = runTimeText + `${min} : ${sec} : ${ms}`;
         }
-
+        
+        // for visualization with speed control
         await asleep(interval);
     }
 
+    // draw final array
     drawImage(finalArray, image, ctx);
 
     return finalArray;
 }
 
+// sleep using set time out
 function asleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -194,6 +216,7 @@ function asleep(ms) {
 let currentOscillators = [];
 let audioCtx;
 
+// Play Beep Using Ocilliators
 function playBeepSound(duration, n, indexes) {
     audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
 
