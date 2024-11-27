@@ -28,7 +28,6 @@ body {
     height: 100%;
 }
 
-
 #canvas {
     height: 70%;
     width: 100%;
@@ -36,7 +35,20 @@ body {
     margin-bottom: 3rem;
 }
 
+#sort_type {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 3rem;
+}
+
+#run_cnt {
+    margin: 0;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
 #run_time {
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 

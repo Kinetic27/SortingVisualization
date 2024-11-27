@@ -29,6 +29,21 @@ const runCountText = "Running Count - ";
 const runTimeTextview = document.getElementById('run_time');
 const runTimeText = "Running Time - ";
 
+const currentPath = new URL(location.href).pathname;
+const sortType = currentPath.split('/').pop();
+
+const sortNames = {
+    'merge': ["병합 정렬(Merge Sort)", mergeSort],
+    'insert': ["삽입 정렬(Insertion Sort)", insertionSort],
+    'quick': ["퀵 정렬(Quick Sort)", quickSort],
+    'bubble': ["버블 정렬(Bubble Sort)", bubbleSort],
+}
+
+const sortName = sortNames[sortType][0];
+
+const sortTypeTextview = document.getElementById('sort_type');
+sortTypeTextview.innerText = /.*\((.*)\)/.exec(sortName)[1];
+
 // init image draw when loaded
 image.onload = async () => {
     canvas.width = image.width;
@@ -68,21 +83,11 @@ function shuffleArray() {
 }
 
 function start() {
-    const currentPath = new URL(location.href).pathname;
-    const sortType = currentPath.split('/').pop();
-
-    // select sort method in url
-    sortNames = {
-        'merge': ["병합 정렬(Merge Sort)", mergeSort],
-        'insert': ["삽입 정렬(Insertion Sort)", insertionSort],
-        'quick': ["퀵 정렬(Quick Sort)", quickSort],
-        'bubble': ["버블 정렬(Bubble Sort)", bubbleSort],
-    }
-
     // init setting for check run count
     runCount = 0;
     runCountTextview.innerHTML = runCountText + runCount;
 
+    // select sort method in url
     execute(sortNames[sortType][1]);
 }
 
@@ -182,7 +187,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
             let sortPercent = (stepProgress * 100 / stepLength).toFixed(2);
 
             runCount++;
-            runCountTextview.innerHTML = `${runCountText}${runCount}, ${sortPercent}%`;
+            runCountTextview.innerHTML = `${runCountText}${runCount} (${sortPercent}%)`;
 
             const runningTime = new Date() - startTime;
 
