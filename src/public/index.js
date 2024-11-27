@@ -8,9 +8,9 @@ n_slider.oninput = () => {
 
 var s_slider = document.getElementById("s_slider");
 var s_output = document.getElementById("s_value");
-s_output.innerHTML = s_slider.value;
+s_output.innerHTML = s_slider.value + 'ms';
 s_slider.oninput = () => {
-    s_output.innerHTML = s_slider.value;
+    s_output.innerHTML = s_slider.value + 'ms';
 }
 
 function moveTo(path) {

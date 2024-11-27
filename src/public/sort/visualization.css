@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    align-items: center;
 }
   
 body {
@@ -31,28 +32,30 @@ body {
 #canvas {
     height: 70%;
     width: 100%;
-    max-width: 40rem;
-    margin-bottom: 4rem;
+    /* max-width: 40rem; */
+    margin-bottom: 3rem;
 }
 
 #run_time {
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
 }
 
 .btn_container {
-    gap: 2rem;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
 }
 
 .btn {
-    padding: 1rem 2rem;
+    padding: 1rem;
     background-color: #fff;
 
     border: none;
     border-radius: 1rem;
 
     flex-grow: 1;
-    min-width: 10rem;
+    width: 9rem;
 }
 
 /*

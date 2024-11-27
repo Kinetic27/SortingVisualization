@@ -4,8 +4,17 @@ const interval = params.get('s') * 1 || 20;
 
 let arr = [...Array(n).keys()]
 
+const img_gachon = 'https://www.gachon.ac.kr/sites/pr/atchmnfl/bbs/464/thumbnail/thumb_temp_1729488066932100.jpg';
+const img_leegilya = 'https://img.khan.co.kr/news/2013/05/22/l_2013052301002975800258871.jpg';
+const img_gachon_logo = 'https://blog.kakaocdn.net/dn/bt1E7c/btqyiAat5IU/xVNU3W8K6cUbF20CztlRVK/img.jpg';
+const img_moodang = 'https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/Q5NLDY5VX5HVNOLMIWJZIMVP6Y.jpg';
+
 // Load Image
-const img = 'https://www.gachon.ac.kr/sites/pr/atchmnfl/bbs/464/thumbnail/thumb_temp_1729488066932100.jpg';
+const imgs = [img_gachon, img_leegilya, img_gachon_logo, img_moodang];
+const random = Math.floor(Math.random() * imgs.length);
+const img = imgs[random];
+
+
 const image = new Image();
 image.src = img;
 
@@ -51,7 +60,7 @@ function shuffleArray() {
     }
 
     arr = shuffle(arr);
-    drawImage(arr, image, ctx)
+    drawImage(arr, image, ctx);
 }
 
 function start() {
@@ -61,6 +70,8 @@ function start() {
     sortNames = {
         'merge': ["병합 정렬(Merge Sort)", mergeSort],
         'insert': ["삽입 정렬(Insertion Sort)", insertionSort],
+        'quick': ["퀵 정렬(Quick Sort)", quickSort],
+        'bubble': ["버블 정렬(Bubble Sort)", bubbleSort],
     }
 
     runCount = 0;
@@ -112,16 +123,17 @@ function drawImage(arr, image, ctx, colored = []) {
 async function sortWithAnimation(image, ctx, arr, interval, generator, startTime) {
     let finalArray = [...arr];
     let colorAndSoundQueue = [];
-    const frameDuration = 60;
 
     for (let result of generator(finalArray)) {
-        const { array, swappedIndexes = [], compareIndexes = [], runCount } = result;
+        const { array, swappedIndexes = [], compareIndexes = [], pivot = [], blue = [] } = result;
 
         colorAndSoundQueue.push({
             array,
             colored: [
-                { indexes: compareIndexes, color: 'rgba(255, 0, 0, 0.5)' },
-                { indexes: swappedIndexes, color: 'rgba(0, 255, 0, 0.5)' },
+                { indexes: swappedIndexes, color: 'rgba(255, 0, 0, 0.7)' },
+                { indexes: compareIndexes, color: 'rgba(0, 255, 0, 0.7)' },
+                { indexes: pivot, color: 'rgba(0, 0, 255, 0.7)' },
+                { indexes: blue, color: 'rgba(0, 0, 0, 0.5)' },
             ],
             soundIndexes: compareIndexes.length !== 0 ? compareIndexes : swappedIndexes
         });
@@ -129,40 +141,27 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
         finalArray = array;
     }
 
-    const numStepsPerFrame = Math.ceil(frameDuration / interval);
     let stepProgress = 0;
     let stepLength = colorAndSoundQueue.length;
 
     while (colorAndSoundQueue.length > 0) {
         let combinedArray;
         let combinedColored = [];
-        let combinedSoundIndexes = new Set();
 
-        for (let i = 0; i < numStepsPerFrame && colorAndSoundQueue.length > 0; i++) {
-            let { array, colored, soundIndexes } = colorAndSoundQueue.shift();
+        let { array, colored, soundIndexes } = colorAndSoundQueue.shift();
 
-            combinedArray = array;
-            combinedColored.push(...colored);
+        stepProgress++;
 
-            if (i === 0)
-                soundIndexes.forEach(index => combinedSoundIndexes.add(index));
-
-            stepProgress++;
-        }
-
-        let duration = Math.max(frameDuration, interval);
-
+        combinedArray = array;
+        combinedColored.push(...colored);
 
         drawImage(combinedArray, image, ctx, combinedColored);
-        playBeepSound(duration, arr.length, Array.from(combinedSoundIndexes));
-
-
-
+        playBeepSound(Math.max(interval, 60), arr.length, soundIndexes);
 
         if (startTime) {
             let sortPercent = (stepProgress * 100 / stepLength).toFixed(2);
 
-            
+
             runCount++;
             runCountTextview.innerHTML = `${runCountText}${runCount}, ${sortPercent}%`;
 
@@ -177,11 +176,10 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
             let ms = Math.floor(runningTime % 1000 / 10);
             ms = ms.toString().padStart(2, '0');
 
-
             runTimeTextview.innerHTML = runTimeText + `${min} : ${sec} : ${ms}`;
         }
 
-        await asleep(Math.max(frameDuration, interval));
+        await asleep(interval);
     }
 
     drawImage(finalArray, image, ctx);
@@ -213,7 +211,7 @@ function playBeepSound(duration, n, indexes) {
         oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
 
         const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
         gainNode.connect(audioCtx.destination);
 
         oscillator.connect(gainNode);

@@ -15,17 +15,19 @@
     <div class="container">
         <h1 class="header press-start-2p-regular">SORT VISUALIZATION</h1>
         <div class="slide__container">
-            <p class="slider_head">Arr Length: <span id="n_value"></span></p>
+            <p class="slider_head">Split Length: <span id="n_value"></span></p>
             <input id="n_slider" type="range" min="10" max="512" value="100">
 
-            <p class="slider_head">Run Speed: <span id="s_value"></span></p>
-            <input id="s_slider" type="range" min="1" max="256" value="20">
+            <p class="slider_head">Run 1 frame Per: <span id="s_value"></span></p>
+            <input id="s_slider" type="range" min="1" max="1000" value="20">
         </div>
 
 
         <div id="buttons" class="btn_container">
             <button class="btn press-start-2p-regular" onclick="moveTo('/sort/insert')">INSERT</button>
             <button class="btn press-start-2p-regular" onclick="moveTo('/sort/merge')">MERGE</button>
+            <button class="btn press-start-2p-regular" onclick="moveTo('/sort/quick')">QUICK</button>
+            <button class="btn press-start-2p-regular" onclick="moveTo('/sort/bubble')">BUBBLE</button>
         </div>
     </div>
     
