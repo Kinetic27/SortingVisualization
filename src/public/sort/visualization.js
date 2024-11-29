@@ -104,7 +104,7 @@ function execute(sortFunction) {
         arr = await sortWithAnimation(image, ctx, arr, interval, sortFunction, startTime);
         
         // check sorted
-        await sortWithAnimation(image, ctx, arr, interval, checkSorted);
+        await sortWithAnimation(image, ctx, arr, 30, checkSorted);
         
         changeBtnStatus(false);
     }
