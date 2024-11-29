@@ -146,7 +146,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
 
     // get generator and make color&sound queue
     for (let result of generator(finalArray)) {
-        const { array, swappedIndexes = [], compareIndexes = [], pivot = [], blue = [] } = result;
+        const { array, swappedIndexes = [], compareIndexes = [], pivot = [], grey = [] } = result;
 
         colorAndSoundQueue.push({
             array,
@@ -154,7 +154,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
                 { indexes: swappedIndexes, color: 'rgba(255, 0, 0, 0.7)' },
                 { indexes: compareIndexes, color: 'rgba(0, 255, 0, 0.7)' },
                 { indexes: pivot, color: 'rgba(0, 0, 255, 0.7)' },
-                { indexes: blue, color: 'rgba(0, 0, 0, 0.5)' },
+                { indexes: grey, color: 'rgba(0, 0, 0, 0.5)' },
             ],
             soundIndexes: compareIndexes.length !== 0 ? compareIndexes : swappedIndexes
         });
