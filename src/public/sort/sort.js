@@ -164,10 +164,10 @@ function* bubbleSort(arr) {
                 compareIndexes: [j, j + 1],
                 gray: [...range(0, n - i)]
             };
-            swapped = true;
 
             if (arr[j] > arr[j + 1]) {
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                swapped = true;
 
                 yield {
                     array: [...arr],
