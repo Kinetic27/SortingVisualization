@@ -104,8 +104,7 @@ const mergeSort = (() => {
 // quick sort algorithm
 const quickSort = (() => {
     function* divide(arr, left, right) {
-        const mid = Math.floor((left + right) / 2);
-        const pivot = arr[mid];
+        const pivot = arr[left];
 
         while (left <= right) {
             while (arr[left] < pivot) {
@@ -135,9 +134,7 @@ const quickSort = (() => {
                 right--;
             }
         }
-
         return left;
-
     }
 
     function* quickSortRecursive(arr, left, right) {
