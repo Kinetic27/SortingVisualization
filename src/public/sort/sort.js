@@ -15,14 +15,14 @@ function* insertionSort(arr) {
         yield {
             array: [...arr],
             pivot: [j],
-            grey: range(j + 1, n)
+            gray: range(j + 1, n)
         };
 
         while (i >= 0 && arr[i] > key) {
             yield {
                 array: [...arr],
                 compareIndexes: [i],
-                grey: range(i == j - 1 ? j : j + 1, n)
+                gray: range(i == j - 1 ? j : j + 1, n)
             };
 
             arr[i + 1] = arr[i];
@@ -31,7 +31,7 @@ function* insertionSort(arr) {
             yield {
                 array: [...arr],
                 swappedIndexes: [i + 1],
-                grey: range(j + 1, n)
+                gray: range(j + 1, n)
             };
 
             i--;
@@ -42,7 +42,7 @@ function* insertionSort(arr) {
         yield {
             array: [...arr],
             swappedIndexes: [i + 1],
-            grey: range(j + 1, n)
+            gray: range(j + 1, n)
         };
     }
 
@@ -165,7 +165,7 @@ function* bubbleSort(arr) {
             yield {
                 array: [...arr],
                 compareIndexes: [j, j + 1],
-                grey: [...range(0, n - i)]
+                gray: [...range(0, n - i)]
             };
             swapped = true;
 
@@ -175,7 +175,7 @@ function* bubbleSort(arr) {
                 yield {
                     array: [...arr],
                     swappedIndexes: [j, j + 1],
-                    grey: [...range(0, n - i)]
+                    gray: [...range(0, n - i)]
                 };
             }
         }
