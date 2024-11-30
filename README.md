@@ -8,6 +8,10 @@ Team I
 Let's make it easier to understand by visualizing the sorting algorithms in the textbook.  
 You will be able to directly experience the time complexity of each algorithm.  
 
+# How to use
+
+<p>https://algo.kinetic.moe/</p>
+<img src = "https://github.com/user-attachments/assets/9521cf11-9a31-4433-a6e0-b45a7027e46f" width="50%" height="50%">
 
 # Sort Algorithms
 
@@ -52,3 +56,22 @@ loop forever
     swap A[i] with A[j]
 ```
 `Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. "Quicksort". Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 170–190. ISBN 0-262-03384-4.`
+
+## Bubble Sort
+```
+procedure bubbleSort(A : list of sortable items)
+    n := length(A)
+    repeat
+        swapped := false
+        for i := 1 to n - 1 inclusive do
+            if A[i - 1] > A[i] then
+                swap(A[i - 1], A[i])
+                swapped := true
+            end if
+        end for
+        n := n - 1
+    until not swapped
+end procedure
+```
+`https://en.wikipedia.org/wiki/Bubble_sort`
+## 
