@@ -19,13 +19,13 @@ The "Split Length" slider lets you decide how much you want to split the picture
 
 <p>And choose algorithm u want!</p>
 <img src = "https://github.com/user-attachments/assets/9521cf11-9a31-4433-a6e0-b45a7027e46f" width="45%" height="45%">
-<img src = "https://github.com/user-attachments/assets/52ef7d12-6b18-4c31-97fe-4328b056c209" width="45%" height="45%">
+<img src = "https://github.com/user-attachments/assets/509306f1-09db-4832-af9a-4a7bcc89c41e" width="45%" height="45%">
 
 ## 2. Press the shuffle button to shuffle
-<img src = "https://github.com/user-attachments/assets/aa4bd898-110f-49f4-bc53-5121d4145df6" width="50%" height="50%">
+<img src = "https://github.com/user-attachments/assets/dc47e9fa-5ada-46b8-8eeb-fba9885b9ec9" width="50%" height="50%">
 
 ## 3. Click Run to see the sorting visualization
-<img src = "https://github.com/user-attachments/assets/b2f48c4d-529d-4ecd-bc2a-0ebbf8f7c11e" width="50%" height="50%">
+<img src = "https://github.com/user-attachments/assets/5b60bc46-8389-4b04-b319-8645f2367129" width="50%" height="50%">
 
 
 # Sort Algorithms
