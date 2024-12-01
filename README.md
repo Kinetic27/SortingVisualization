@@ -8,7 +8,6 @@ Team I
 Let's make it easier to understand by visualizing the sorting algorithms in the textbook.  
 You will be able to directly experience the time complexity of each algorithm.  
 
-
 ## About Sorting Algorithms
 Every algorithms have different time complexity.
 The size and numbers of data can affect to the time complexity of an algorithm. 
@@ -16,6 +15,10 @@ The size and numbers of data can affect to the time complexity of an algorithm.
 ## Sorting Algorithms Visualization
 Visualization technique can compare their running time with just few clicks.
 Finally, we can easily derive which algorithm is the efficient one at certain environment, i.e. specific numbers of data.
+
+## Result
+
+https://github.com/user-attachments/assets/230d756d-ab6c-4383-9842-cbe3fbefacbe
 
 ## How to use
 
