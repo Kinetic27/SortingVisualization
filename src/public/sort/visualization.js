@@ -7,11 +7,12 @@ let arr = [...Array(n).keys()]
 // Set Image List
 const img_gachon = 'https://www.gachon.ac.kr/sites/pr/atchmnfl/bbs/464/thumbnail/thumb_temp_1729488066932100.jpg';
 const img_leegilya = 'https://img.khan.co.kr/news/2013/05/22/l_2013052301002975800258871.jpg';
-const img_gachon_logo = 'https://blog.kakaocdn.net/dn/bt1E7c/btqyiAat5IU/xVNU3W8K6cUbF20CztlRVK/img.jpg';
+const img_gachon2 = 'https://upload.wikimedia.org/wikipedia/commons/e/ed/Gachon.jpg';
 const img_moodang = 'https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/Q5NLDY5VX5HVNOLMIWJZIMVP6Y.jpg';
+const img_metagachon = 'https://www.gachon.ac.kr/sites/kor/images/sub/blockstopimage.jpg';
 
 // Load Image
-const imgs = [img_gachon, img_leegilya, img_gachon_logo, img_moodang];
+const imgs = [img_gachon, img_leegilya, img_gachon2, img_moodang, img_metagachon];
 const random = Math.floor(Math.random() * imgs.length);
 const img = imgs[random];
 
@@ -39,6 +40,13 @@ const sortNames = {
     'bubble': ["버블 정렬(Bubble Sort)", bubbleSort],
 }
 
+const sortInfo = {
+    'merge': [["● Insert", "#ff0000"], ["● Compare", "#00ff00"]],
+    'insert': [["● Copy", "#ff0000"], ["● Insert", "#ff7f00"], ["● Compare", "#00ff00"], ["● Select key", "#0000ff"]],
+    'quick': [["● Insert", "#ff0000"], ["● Compare", "#00ff00"], ["● Pivot", "#0000ff"]],
+    'bubble': [["● Insert", "#ff0000"], ["● Compare", "#00ff00"]],
+}
+
 const sortName = sortNames[sortType][0];
 
 const sortTypeTextview = document.getElementById('sort_type');
@@ -48,6 +56,8 @@ sortTypeTextview.innerText = /.*\((.*)\)/.exec(sortName)[1];
 image.onload = async () => {
     canvas.width = image.width;
     canvas.height = image.height;
+    canvas.style.letterSpacing = Math.round(image.width / 300) + "px";
+
     drawImage(arr, image, ctx)
 }
 
@@ -99,13 +109,13 @@ function execute(sortFunction) {
     image.onload = async () => {
         const startTime = new Date();
         changeBtnStatus(true);
-        
+
         // do sort
         arr = await sortWithAnimation(image, ctx, arr, interval, sortFunction, startTime);
-        
+
         // check sorted
         await sortWithAnimation(image, ctx, arr, 30, checkSorted);
-        
+
         changeBtnStatus(false);
     }
 }
@@ -137,6 +147,18 @@ function drawImage(arr, image, ctx, colored = []) {
         indexes.forEach(i => ctx.fillRect(i * pieceWidth, 0, pieceWidth, canvas.height));
         ctx.globalCompositeOperation = 'source-over';
     }
+
+    const fontSize = Math.round((canvas.height / 25));
+    ctx.font = fontSize + "px Arial";
+
+    const margin = 10;
+
+    sortInfo[sortType].forEach((v, i) => {
+        const [text, color] = v;
+
+        ctx.fillStyle = color;
+        ctx.fillText(text, 0, fontSize * (i + 1) + margin * i);
+    });
 }
 
 // do sort with animation
@@ -146,7 +168,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
 
     // get generator and make color&sound queue
     for (let result of generator(finalArray)) {
-        const { array, swappedIndexes = [], compareIndexes = [], pivot = [], gray = [] } = result;
+        const { array, swappedIndexes = [], compareIndexes = [], pivot = [], insert = [], gray = [] } = result;
 
         colorAndSoundQueue.push({
             array,
@@ -154,6 +176,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
                 { indexes: swappedIndexes, color: 'rgba(255, 0, 0, 0.7)' },
                 { indexes: compareIndexes, color: 'rgba(0, 255, 0, 0.7)' },
                 { indexes: pivot, color: 'rgba(0, 0, 255, 0.7)' },
+                { indexes: insert, color: 'rgba(255, 125, 0, 0.7)' },
                 { indexes: gray, color: 'rgba(0, 0, 0, 0.5)' },
             ],
             soundIndexes: compareIndexes.length !== 0 ? compareIndexes : swappedIndexes
@@ -202,7 +225,7 @@ async function sortWithAnimation(image, ctx, arr, interval, generator, startTime
 
             runTimeTextview.innerHTML = runTimeText + `${min} : ${sec} : ${ms}`;
         }
-        
+
         // for visualization with speed control
         await asleep(interval);
     }

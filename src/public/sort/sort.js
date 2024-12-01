@@ -41,7 +41,7 @@ function* insertionSort(arr) {
         
         yield {
             array: [...arr],
-            swappedIndexes: [i + 1],
+            insert: [i + 1],
             gray: range(j + 1, n)
         };
     }
