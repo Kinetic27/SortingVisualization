@@ -11,9 +11,25 @@ You will be able to directly experience the time complexity of each algorithm.
 # How to use
 
 <p>https://algo.kinetic.moe/</p>
-<img src = "https://github.com/user-attachments/assets/9521cf11-9a31-4433-a6e0-b45a7027e46f" width="50%" height="50%">
+
+## 1. select the algorithm u want to use.
+
+The "Split Length" slider lets you decide how much you want to split the picture into small pieces.
+"Run 1 frame Per" slider to adjust how many seconds you want to run one frame.
+
+<p>And choose algorithm u want!</p>
+<img src = "https://github.com/user-attachments/assets/9521cf11-9a31-4433-a6e0-b45a7027e46f" width="45%" height="45%">
+<img src = "https://github.com/user-attachments/assets/52ef7d12-6b18-4c31-97fe-4328b056c209" width="45%" height="45%">
+
+## 2. Press the shuffle button to shuffle
+<img src = "https://github.com/user-attachments/assets/aa4bd898-110f-49f4-bc53-5121d4145df6" width="50%" height="50%">
+
+## 3. Click Run to see the sorting visualization
+
 
 # Sort Algorithms
+
+## Insertion Sort, Merge Sort  
 
 <div style="display: flex">
   <img src = "https://github.com/user-attachments/assets/75513477-1c11-48b3-bfce-de1d5b31aed2" width="45%" height="45%">
@@ -21,6 +37,7 @@ You will be able to directly experience the time complexity of each algorithm.
 </div>
 
 ## Quick Sort
+
 ```
 // Sorts (a portion of) an array, divides it into partitions, then sorts those
 algorithm quicksort(A, lo, hi) is 
@@ -58,6 +75,7 @@ loop forever
 `Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. "Quicksort". Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 170–190. ISBN 0-262-03384-4.`
 
 ## Bubble Sort
+
 ```
 procedure bubbleSort(A : list of sortable items)
     n := length(A)
