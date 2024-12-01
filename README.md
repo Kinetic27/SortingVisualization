@@ -25,6 +25,7 @@ The "Split Length" slider lets you decide how much you want to split the picture
 <img src = "https://github.com/user-attachments/assets/aa4bd898-110f-49f4-bc53-5121d4145df6" width="50%" height="50%">
 
 ## 3. Click Run to see the sorting visualization
+<img src = "https://github.com/user-attachments/assets/b2f48c4d-529d-4ecd-bc2a-0ebbf8f7c11e" width="50%" height="50%">
 
 
 # Sort Algorithms
