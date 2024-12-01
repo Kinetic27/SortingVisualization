@@ -3,6 +3,8 @@
 2024 2-2 Algorithm Term Project
 Team I
 
+<p>https://algo.kinetic.moe/</p>
+
 ## IDEA
 
 Let's make it easier to understand by visualizing the sorting algorithms in the textbook.  
