@@ -1,3 +1,10 @@
+<!-- archived-project-note -->
+> **Status:** Archived / read-only.  
+> A 2024 Algorithm course team project kept public as coursework/project record. No longer actively maintained.  
+> 2024년 2학기 알고리즘 과목 팀 프로젝트입니다. 과제/프로젝트 기록 목적의 공개 보존본이며 현재 유지보수하지 않습니다.
+
+---
+
 # Sorting Algorithm Visual Project
 
 2024 2-2 Algorithm Term Project
